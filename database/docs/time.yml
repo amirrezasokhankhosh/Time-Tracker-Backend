@@ -1,0 +1,142 @@
+/time/:
+  get:
+    tags:
+      - "Time"
+    summary: "Get All times"
+    responses:
+      200:
+        $ref: '#/responses/200'
+      401:
+        $ref: '#/responses/401'
+      403:
+        $ref: '#/responses/403'
+      404:
+        $ref: '#/responses/404'
+      406:
+        $ref: '#/responses/406'
+
+
+
+  post:
+    tags:
+      - "Time"
+    summary: "New Time"
+
+    parameters:
+      - in: body
+        name: body
+        required: true
+        schema:
+          type: ojbect
+          properties:
+            - task_id
+            - start_at
+            - end_at
+          required:
+            - task_id
+            - start_at
+            - end_at
+          example:
+            task_id: "2"
+            start_at: "2020-12-13 12"
+            end_at: "2020-12-13 14"
+    responses:
+      200:
+        $ref: '#/responses/200'
+      401:
+        $ref: '#/responses/401'
+      403:
+        $ref: '#/responses/403'
+      404:
+        $ref: '#/responses/404'
+      406:
+        $ref: '#/responses/406'
+
+
+/time/{id}/:
+  get:
+    tags:
+      - "Time"
+    summary: "Get By Id"
+    parameters:
+      - in: path
+        name: id
+        required: true
+        example: 1
+        description: "id"
+        type: integer
+    responses:
+      200:
+        $ref: '#/responses/200'
+      401:
+        $ref: '#/responses/401'
+      403:
+        $ref: '#/responses/403'
+      404:
+        $ref: '#/responses/404'
+      406:
+        $ref: '#/responses/406'
+
+  delete:
+    tags:
+      - "Time"
+    summary: "Delete by id"
+    parameters:
+      - in: path
+        name: id
+        required: true
+        example: 1
+        description: "id"
+        type: integer
+    responses:
+      200:
+        $ref: '#/responses/200'
+      401:
+        $ref: '#/responses/401'
+      403:
+        $ref: '#/responses/403'
+      404:
+        $ref: '#/responses/404'
+      406:
+        $ref: '#/responses/406'
+
+
+  put:
+    tags:
+      - "Time"
+    summary: "Update Record"
+    parameters:
+      - in: path
+        name: id
+        required: true
+        example: 1
+        description: "id"
+        type: integer
+      - in: body
+        name: body
+        required: true
+        schema:
+          type: ojbect
+          properties:
+            - task_id
+            - start_at
+            - end_at
+          required:
+            - task_id
+            - start_at
+            - end_at
+          example:
+            task_id: "2"
+            start_at: "2020-12-13 12"
+            end_at: "2020-12-13 14"
+    responses:
+      200:
+        $ref: '#/responses/200'
+      401:
+        $ref: '#/responses/401'
+      403:
+        $ref: '#/responses/403'
+      404:
+        $ref: '#/responses/404'
+      406:
+        $ref: '#/responses/406'

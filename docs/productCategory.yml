@@ -1,0 +1,143 @@
+/productCategory/:
+  get:
+    tags:
+      - "Product Category"
+    summary: "مشاهده تمام دسته بندی محصولات"
+    parameters:
+      - in: query
+        name: all
+        description: "نمایش تمام داده ها بدون صفحه بندی"
+        type: integer
+      - in: query
+        name: page
+        required: false
+        example: 1
+        description: "شماره صفحه"
+        type: integer
+    responses:
+      200:
+        $ref: '#/responses/200'
+      401:
+        $ref: '#/responses/401'
+      403:
+        $ref: '#/responses/403'
+      404:
+        $ref: '#/responses/404'
+      406:
+        $ref: '#/responses/406'
+
+  post:
+    tags:
+      - "Product Category"
+    summary: "ایجاد یک دسته بندی محصول"
+
+    parameters:
+      - in: body
+        name: body
+        required: true
+        schema:
+          type: ojbect
+          properties:
+            - name
+            - descrpition
+          example:
+            name: "category1"
+            description: "category 1 description"
+
+    responses:
+      200:
+        $ref: '#/responses/200'
+      401:
+        $ref: '#/responses/401'
+      403:
+        $ref: '#/responses/403'
+      404:
+        $ref: '#/responses/404'
+      406:
+        $ref: '#/responses/406'
+
+
+
+/productCategory/{id}:
+
+  get:
+    tags:
+      - "Product Category"
+    summary: "مشاهده یک محصول"
+    parameters:
+      - in: path
+        name: id
+        required: true
+        example: 1
+        description: "id"
+        type: integer
+    responses:
+      200:
+        $ref: '#/responses/200'
+      401:
+        $ref: '#/responses/401'
+      403:
+        $ref: '#/responses/403'
+      404:
+        $ref: '#/responses/404'
+      406:
+        $ref: '#/responses/406'
+
+  delete:
+    tags:
+      - "Product Category"
+    summary: "حذف یک دسته بندی"
+    parameters:
+      - in: path
+        name: id
+        required: true
+        example: 1
+        description: "id"
+        type: integer
+    responses:
+      200:
+        $ref: '#/responses/200'
+      401:
+        $ref: '#/responses/401'
+      403:
+        $ref: '#/responses/403'
+      404:
+        $ref: '#/responses/404'
+      406:
+        $ref: '#/responses/406'
+
+
+  put:
+    tags:
+      - "Product Category"
+    summary: "ویرایش دسته بندی "
+    parameters:
+      - in: path
+        name: id
+        required: true
+        example: 1
+        description: "id"
+        type: integer
+      - in: body
+        name: body
+        required: true
+        schema:
+          type: ojbect
+          properties:
+            - name
+            - description
+          example:
+            name: "laptop"
+            description: "All brands of laptops"
+
+    responses:
+      200:
+        $ref: '#/responses/200'
+      401:
+        $ref: '#/responses/401'
+      403:
+        $ref: '#/responses/403'
+      404:
+        $ref: '#/responses/404'
+      406:
+        $ref: '#/responses/406'

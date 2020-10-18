@@ -1,0 +1,22 @@
+/role/:
+  get:
+    tags:
+      - "permission"
+    summary: "دریافت لیست پرمیشن ها"
+    parameters:
+      - in: query
+        name: page
+        required: false
+        description: "شماره صفحه"
+        type: integer
+    responses:
+      200:
+        description: "بازگرداندن تمام رول ها"
+      401:
+        $ref: '#/responses/401'
+      403:
+        $ref: '#/responses/403'
+      404:
+        $ref: '#/responses/404'
+      406:
+        $ref: '#/responses/406'

@@ -1,0 +1,397 @@
+/user/:
+  get:
+    tags:
+      - "User"
+    summary: "مشاهده تمام کاربران"
+    parameters:
+      - in: query
+        name: with_gruops
+        required: false
+        example: 1
+        description: "With Groups"
+        type: integer
+      - in: query
+        name: with_projects
+        required: false
+        example: 1
+        description: "With Projects"
+        type: integer
+      - in: query
+        name: page
+        required: false
+        example: 1
+        description: "شماره صفحه"
+        type: integer
+      - in: query
+        name: all
+        required: false
+        example: 1
+        description: "get all records without pagination"
+        type: integer
+    responses:
+      200:
+        $ref: '#/responses/200'
+      401:
+        $ref: '#/responses/401'
+      403:
+        $ref: '#/responses/403'
+      404:
+        $ref: '#/responses/404'
+      406:
+        $ref: '#/responses/406'
+
+  post:
+    tags:
+      - "User"
+    summary: "ایجاد یک کاربر"
+
+    parameters:
+      - in: body
+        name: body
+        required: true
+        schema:
+          type: ojbect
+          properties:
+            - name
+            - username
+            - phone_number
+            - email
+            - password
+            - password_confirmation
+            - national_code
+            - bio
+          example:
+            name: "user 3"
+            username: "user3"
+            password: "password"
+            password_confirmation: "password"
+            email: "user3@user.com"
+            national_code: "324234"
+            "bio" : "bio content"
+            "phone_number" : "09375436839"
+
+    responses:
+      200:
+        $ref: '#/responses/200'
+      401:
+        $ref: '#/responses/401'
+      403:
+        $ref: '#/responses/403'
+      404:
+        $ref: '#/responses/404'
+      406:
+        $ref: '#/responses/406'
+
+/user/{id}:
+
+  delete:
+    tags:
+      - "User"
+    summary: "حذف کاربر "
+    parameters:
+      - in: path
+        name: id
+        required: true
+        example: 3
+        description: "id"
+        type: integer
+
+    responses:
+      200:
+        $ref: '#/responses/200'
+      401:
+        $ref: '#/responses/401'
+      403:
+        $ref: '#/responses/403'
+      404:
+        $ref: '#/responses/404'
+      406:
+        $ref: '#/responses/406'
+
+
+  put:
+    tags:
+      - "User"
+    summary: "ویرایش کاربر"
+
+    parameters:
+      - in: path
+        name: id
+        required: true
+        example: 3
+        description: "id"
+        type: integer
+      - in: body
+        name: body
+        required: true
+        schema:
+          type: ojbect
+          properties:
+            - name
+            - username
+            - phone_number
+            - email
+            - password
+            - password_confirmation
+            - national_code
+            - bio
+          example:
+            name: "user 3 edited"
+            username: "user3"
+            password: "password"
+            password_confirmation: "password"
+            email: "user3@user.com"
+            national_code: "324234"
+            "bio" : "bio content"
+            "phone_number" : "+989375436839"
+
+    responses:
+      200:
+        $ref: '#/responses/200'
+      401:
+        $ref: '#/responses/401'
+      403:
+        $ref: '#/responses/403'
+      404:
+        $ref: '#/responses/404'
+      406:
+        $ref: '#/responses/406'
+
+
+/user/{id}/roles:
+  get:
+    tags:
+      - "User"
+    summary: "مشاهده تمام رول های کاربر"
+    parameters:
+      - in: path
+        name: id
+        required: true
+        example: 1
+        description: "id یوزر"
+        type: integer
+      - in: query
+        name: mapped
+        required: false
+        example: 1
+        description: "در صورت فعال بودن این پارامتر تمام رول ها بازگردانده میشود و رول های یوزر رول با فلگ belong_to_user  مشخص میشود"
+        type: integer
+    responses:
+      200:
+        description: "بازگرداندن تمام رول ها"
+      401:
+        $ref: '#/responses/401'
+      403:
+        $ref: '#/responses/403'
+      404:
+        $ref: '#/responses/404'
+      406:
+        $ref: '#/responses/406'
+
+/user/{id}/updateRoles:
+  put:
+    tags:
+      - "User"
+    summary: "ادیت رول های یک یوزر"
+    parameters:
+      - in: path
+        name: id
+        required: true
+        example: 1
+        description: "id یوزر"
+        type: integer
+      - in: body
+        name: body
+        required: true
+        description: " آرایه ای شامل ای دی رول هایی که کاربر میبایست با آن ها تعلق داشته باشد, توجه شود که ارایه رول ها مشخصا میبایست در دیتابیس وجود داشته باشد در غیر این صورت ارور به برگردانده میشود"
+        schema:
+          type: ojbect
+          properties:
+            - roles
+          required:
+            - roles
+          example:
+            roles:
+              - 2
+              - 3
+              - 9
+
+    responses:
+      200:
+        description: "موفقیت آپدیت"
+      401:
+        $ref: '#/responses/401'
+      403:
+        $ref: '#/responses/403'
+      404:
+        $ref: '#/responses/404'
+      406:
+        $ref: '#/responses/406'
+
+
+/user/currentPermissions:
+  get:
+    tags:
+      - "User"
+    summary: "مشاهده تمام پرمیشن های کاربر لاگین شده در حال حاظر "
+    responses:
+      200:
+        description: "بازگرداندن پرمیشن ها"
+      401:
+        $ref: '#/responses/401'
+      403:
+        $ref: '#/responses/403'
+      404:
+        $ref: '#/responses/404'
+      406:
+        $ref: '#/responses/406'
+
+
+
+/user/{id}/project:
+  get:
+    tags:
+      - "User"
+    summary: "دریافت پروژه های کاربر"
+    parameters:
+      - in: path
+        name: id
+        required: true
+        example: 1
+        description: "user id"
+        type: integer
+      - in: query
+        name: page
+        required: false
+        example: 1
+        description: "شماره صفحه"
+        type: integer
+      - in: query
+        name: all
+        required: false
+        description: "Get All Records"
+        type: integer
+    responses:
+      200:
+        $ref: '#/responses/200'
+      401:
+        $ref: '#/responses/401'
+      403:
+        $ref: '#/responses/403'
+      404:
+        $ref: '#/responses/404'
+      406:
+        $ref: '#/responses/406'
+
+  put:
+    tags:
+      - "User"
+    summary: "تغییر پروژه هایی که کاربر در آن عضو است"
+    parameters:
+      - in: path
+        name: id
+        required: true
+        example: 1
+        description: "id یوزر"
+        type: integer
+      - in: body
+        name: body
+        required: true
+        description: " آرایه ای شامل ای دی رول هایی که کاربر میبایست با آن ها تعلق داشته باشد, توجه شود که ارایه پروژه ها مشخصا میبایست در دیتابیس وجود داشته باشد در غیر این صورت ارور به برگردانده میشود"
+        schema:
+          type: ojbect
+          properties:
+            - groups
+          required:
+            - groups
+          example:
+            projects:
+              - 2
+              - 3
+              - 9
+    responses:
+      200:
+        $ref: '#/responses/200'
+      401:
+        $ref: '#/responses/401'
+      403:
+        $ref: '#/responses/403'
+      404:
+        $ref: '#/responses/404'
+      406:
+        $ref: '#/responses/406'
+
+
+
+/user/{id}/group:
+  get:
+    tags:
+      - "User"
+    summary: "دریافت تمام گروه هایی که کاربر در آن عضو شده است"
+    parameters:
+      - in: path
+        name: id
+        required: true
+        example: 1
+        description: "user id"
+        type: integer
+      - in: query
+        name: page
+        required: false
+        example: 1
+        description: "شماره صفحه"
+        type: integer
+      - in: query
+        name: all
+        required: false
+        description: "Get All Records"
+        type: integer
+    responses:
+      200:
+        $ref: '#/responses/200'
+      401:
+        $ref: '#/responses/401'
+      403:
+        $ref: '#/responses/403'
+      404:
+        $ref: '#/responses/404'
+      406:
+        $ref: '#/responses/406'
+
+  put:
+    tags:
+      - "User"
+    summary: "تغییر گروه هایی که کاربر در آن عضو است"
+    parameters:
+      - in: path
+        name: id
+        required: true
+        example: 1
+        description: "id یوزر"
+        type: integer
+      - in: body
+        name: body
+        required: true
+        description: " آرایه ای شامل ای دی رول هایی که کاربر میبایست با آن ها تعلق داشته باشد, توجه شود که ارایه گروه ها مشخصا میبایست در دیتابیس وجود داشته باشد در غیر این صورت ارور به برگردانده میشود"
+        schema:
+          type: ojbect
+          properties:
+            - groups
+          required:
+            - groups
+          example:
+            groups:
+              - 2
+              - 3
+              - 9
+    responses:
+      200:
+        $ref: '#/responses/200'
+      401:
+        $ref: '#/responses/401'
+      403:
+        $ref: '#/responses/403'
+      404:
+        $ref: '#/responses/404'
+      406:
+        $ref: '#/responses/406'

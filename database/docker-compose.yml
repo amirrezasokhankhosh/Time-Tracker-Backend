@@ -1,0 +1,42 @@
+version: '3.2'
+
+services:
+    mysql_db:
+        image: mysql:5.7
+        volumes:
+            - db_data:/var/lib/mysql
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: c5406632b4a8b43265cdbcf
+            MYSQL_DATABASE: node_db
+            MYSQL_USER: node_db
+            MYSQL_PASSWORD: 10blwgOwlsl846Ks&s
+
+    node_app:
+        depends_on:
+            - mysql_db
+        build: .
+        ports:
+            - "3334:3333"
+        restart: always
+        volumes:
+            - /src/node_modules
+            - type: volume
+              source: ./node/
+              target: /src
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        environment:
+            PMA_PORT: 3306
+            PMA_HOST: mysql_db
+            PMA_USER: node_db
+            PMA_PASSWORD: 10blwgOwlsl846Ks&s
+        ports:
+        - "3337:80"
+        depends_on: 
+        - mysql_db
+
+volumes:
+  db_data:
+
+

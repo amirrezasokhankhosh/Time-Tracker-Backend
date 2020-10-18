@@ -1,0 +1,44 @@
+'use strict'
+
+class {{name}} {
+  // If this getter isn't provided, it will default to 1.
+  // Increase this number to increase processing concurrency.
+  static get concurrency () {
+    return 1
+  }
+
+  // This is required. This is a unique key used to identify this job.
+  static get key () {
+    return '{{name}}-job'
+  }
+
+  // This is where the work is doing.
+  async handle (data) {
+    console.log('{{name}}-job started')
+  }
+  /**
+  This method using when job process is completed
+  @param job
+  @param result
+  */
+  onCompleted(job, result){
+
+  }
+  /**
+  This method using when a job is active
+  @param job
+  @param jobPromis
+  */
+  onActive(job, jobPromis){
+
+  }
+  /**
+  This method using when a job at queue is waiting
+  @param jobId
+  */
+  onWaiting(jobId){
+
+  }
+}
+
+module.exports = {{name}}

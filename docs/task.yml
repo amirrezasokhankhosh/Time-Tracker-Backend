@@ -1,0 +1,151 @@
+/task/:
+  get:
+    tags:
+      - "Task"
+    summary: "Get All tasks"
+    parameters:
+      - in: query
+        name: page
+        required: false
+        example: 1
+        description: "شماره صفحه"
+        type: integer
+      - in: query
+        name: all
+        required: false
+        description: "Get All Records"
+        type: integer
+    responses:
+      200:
+        $ref: '#/responses/200'
+      401:
+        $ref: '#/responses/401'
+      403:
+        $ref: '#/responses/403'
+      404:
+        $ref: '#/responses/404'
+      406:
+        $ref: '#/responses/406'
+
+
+
+  post:
+    tags:
+      - "Task"
+    summary: "New Task"
+
+    parameters:
+      - in: body
+        name: body
+        required: true
+        schema:
+          type: ojbect
+          properties:
+            - title
+            - content
+            - project_id
+          required:
+            - title
+            - project_id
+          example:
+            title: "exampe task"
+            content: 'test task craeted'
+            project_id: 1
+    responses:
+      200:
+        $ref: '#/responses/200'
+      401:
+        $ref: '#/responses/401'
+      403:
+        $ref: '#/responses/403'
+      404:
+        $ref: '#/responses/404'
+      406:
+        $ref: '#/responses/406'
+
+
+/task/{id}/:
+  get:
+    tags:
+      - "Task"
+    summary: "Get By Id"
+    parameters:
+      - in: path
+        name: id
+        required: true
+        example: 1
+        description: "id"
+        type: integer
+    responses:
+      200:
+        $ref: '#/responses/200'
+      401:
+        $ref: '#/responses/401'
+      403:
+        $ref: '#/responses/403'
+      404:
+        $ref: '#/responses/404'
+      406:
+        $ref: '#/responses/406'
+
+  delete:
+    tags:
+      - "Task"
+    summary: "Delete by id"
+    parameters:
+      - in: path
+        name: id
+        required: true
+        example: 1
+        description: "id"
+        type: integer
+    responses:
+      200:
+        $ref: '#/responses/200'
+      401:
+        $ref: '#/responses/401'
+      403:
+        $ref: '#/responses/403'
+      404:
+        $ref: '#/responses/404'
+      406:
+        $ref: '#/responses/406'
+
+
+  put:
+    tags:
+      - "Task"
+    summary: "Update Record"
+    parameters:
+      - in: path
+        name: id
+        required: true
+        example: 1
+        description: "id"
+        type: integer
+      - in: body
+        name: body
+        required: true
+        schema:
+          type: ojbect
+          properties:
+            - title
+            - content
+            - project_id
+          required:
+            - name
+          example:
+            title: "example task 2"
+            description: 'example task content edited'
+            project_id: 2
+    responses:
+      200:
+        $ref: '#/responses/200'
+      401:
+        $ref: '#/responses/401'
+      403:
+        $ref: '#/responses/403'
+      404:
+        $ref: '#/responses/404'
+      406:
+        $ref: '#/responses/406'

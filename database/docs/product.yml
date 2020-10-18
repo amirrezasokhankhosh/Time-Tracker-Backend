@@ -1,0 +1,169 @@
+/product/:
+  get:
+    tags:
+      - "Product"
+    summary: "مشاهده تمام محصولات"
+    parameters:
+      - in: query
+        name: page
+        required: false
+        example: 1
+        description: "شماره صفحه"
+        type: integer
+    responses:
+      200:
+        $ref: '#/responses/200'
+      401:
+        $ref: '#/responses/401'
+      403:
+        $ref: '#/responses/403'
+      404:
+        $ref: '#/responses/404'
+      406:
+        $ref: '#/responses/406'
+
+
+  post:
+    tags:
+      - "Product"
+    summary: "ایجاد یک محصول"
+
+    parameters:
+      - in: body
+        name: body
+        required: true
+        schema:
+          type: ojbect
+          properties:
+            - name
+            - content
+            - available
+            - max_available
+            - code
+            - image
+            - price
+            - categories
+          example:
+            name: "prodcuct 1"
+            content: "product contentn test"
+            available: 10
+            max_available: 1000
+            code: "s2gndo"
+            image: "image_name.jpg"
+            price: 1200000
+            product_categories:
+              - 3
+              - 1
+              - 7
+
+    responses:
+      200:
+        $ref: '#/responses/200'
+      401:
+        $ref: '#/responses/401'
+      403:
+        $ref: '#/responses/403'
+      404:
+        $ref: '#/responses/404'
+      406:
+        $ref: '#/responses/406'
+
+
+/product/{id}:
+  get:
+    tags:
+      - "Product"
+    summary: "دریافت اطلاعات یک محصول"
+    parameters:
+      - in: path
+        name: id
+        required: true
+        example: 1
+        description: "id"
+        type: integer
+    responses:
+      200:
+        $ref: '#/responses/200'
+      401:
+        $ref: '#/responses/401'
+      403:
+        $ref: '#/responses/403'
+      404:
+        $ref: '#/responses/404'
+      406:
+        $ref: '#/responses/406'
+
+  delete:
+    tags:
+      - "Product"
+    summary: "حذف یک محصول"
+    parameters:
+      - in: path
+        name: id
+        required: true
+        example: 1
+        description: "id"
+        type: integer
+    responses:
+      200:
+        $ref: '#/responses/200'
+      401:
+        $ref: '#/responses/401'
+      403:
+        $ref: '#/responses/403'
+      404:
+        $ref: '#/responses/404'
+      406:
+        $ref: '#/responses/406'
+
+
+  put:
+    tags:
+      - "Product"
+    summary: "ویرایش محصول"
+
+
+    parameters:
+      - in: path
+        name: id
+        required: true
+        example: 1
+        description: "id"
+        type: integer
+      - in: body
+        name: body
+        required: true
+        schema:
+          type: ojbect
+          properties:
+            - name
+            - content
+            - available
+            - max_available
+            - code
+            - image
+            - price
+            - categories
+          example:
+            name: "prodcuct 1 edited"
+            content: "product contentn test"
+            available: 10
+            max_available: 1000
+            code: "s2gndo"
+            image: "image_name.jpg"
+            price: 1200000
+            product_categories:
+              - 3
+              - 1
+              - 7
+    responses:
+      200:
+        $ref: '#/responses/200'
+      401:
+        $ref: '#/responses/401'
+      403:
+        $ref: '#/responses/403'
+      404:
+        $ref: '#/responses/404'
+      406:
+        $ref: '#/responses/406'
