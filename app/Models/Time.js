@@ -15,8 +15,9 @@ class Time extends Model {
 
   static getCreateRule() {
     return {
-      start_at: 'required|date_format:YYYY-MM-DD HH',
-      end_at: 'required|date_format:YYYY-MM-DD HH',
+      day : 'required|string',
+      start_at: 'required|string',
+      end_at: 'required|string',
       task_id: 'required',
       user_id: 'required'
     }

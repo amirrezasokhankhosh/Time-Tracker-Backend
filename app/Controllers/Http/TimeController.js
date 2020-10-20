@@ -51,7 +51,7 @@ class TimeController {
    */
   async store({ request, response, auth }) {
     const user = await auth.getUser()
-    let data = request.only(['start_at', 'end_at', 'task_id'])
+    let data = request.only(['day', 'start_at', 'end_at', 'task_id'])
     data['user_id'] = user.toJSON().id
     const validation = await validate(data, Time.getCreateRule())
     if (validation.fails()) {
@@ -111,7 +111,7 @@ class TimeController {
    */
   async update({ params, request, response , auth}) {
     const user = await auth.getUser()
-    let data = request.only(['start_at', 'end_at', 'task_id'])
+    let data = request.only(['date', 'start_at', 'end_at', 'task_id'])
     data['user_id'] = user.toJSON().id
     const validation = await validate(data, Time.getCreateRule())
     if (validation.fails()) {
