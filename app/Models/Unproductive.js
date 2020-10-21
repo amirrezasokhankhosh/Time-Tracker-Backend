@@ -8,8 +8,9 @@ class Unproductive extends Model {
         return {
             site_id: `required`,
             user_id: 'required',
-            start_at: 'required|date_format:YYYY-MM-DD HH',
-            end_at: 'required|date_format:YYYY-MM-DD HH',
+            start_at: 'required',
+            end_at: 'required',
+            day: 'required'
         }
     }
 }

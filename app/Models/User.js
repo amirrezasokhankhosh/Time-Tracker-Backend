@@ -2,24 +2,24 @@
 
 /** @type {import('@adonisjs/framework/src/Hash')} */
 const Hash = use('Hash')
-const Role = use('Role') ;
+const Role = use('Role');
 
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Model = use('Model')
 
 class User extends Model {
-  static get traits () {
+  static get traits() {
     return [
       '@provider:Adonis/Acl/HasRole',
       '@provider:Adonis/Acl/HasPermission'
     ]
   }
 
-  static get hidden () {
+  static get hidden() {
     return ['password']
   }
 
-  static boot () {
+  static boot() {
     super.boot()
 
     /**
@@ -43,7 +43,7 @@ class User extends Model {
    *
    * @return {Object}
    */
-  tokens () {
+  tokens() {
     return this.hasmany('app/models/token')
   }
 
@@ -52,17 +52,29 @@ class User extends Model {
 
   groups() {
     return this
-      .belongsToMany('App/Models/Group' ,
-        'user_id' , 'group_id' , 'id' , 'id')
+      .belongsToMany('App/Models/Group',
+        'user_id', 'group_id', 'id', 'id')
       .pivotTable('group_user')
   }
 
 
   projects() {
     return this
-      .belongsToMany('App/Models/Project' ,
-        'user_id' , 'project_id' , 'id' , 'id')
+      .belongsToMany('App/Models/Project',
+        'user_id', 'project_id', 'id', 'id')
       .pivotTable('project_user')
+  }
+
+  restrictedSites() {
+    return this.belongsToMany('App/Models/Site').pivotTable('site_users')
+  }
+
+  times(){
+    return this.hasMany('App/Models/Time')
+  }
+
+  unproductives(){
+    return this.hasMany('App/Models/Unproductive')
   }
 
 }

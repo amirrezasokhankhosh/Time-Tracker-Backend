@@ -329,6 +329,14 @@ addPrefixToGroup(Route.group(() => {
   .middleware(['auth'])
 )
 
+addPrefixToGroup(Route.group(() => {
+  Route.get('/' , 'ProductivityController.index')
+
+})
+  .prefix('productivity')
+  .middleware(['auth'])
+)
+
 // This has to be the last route
 Route.any('*', ({ view }) => view.render('app'));
 

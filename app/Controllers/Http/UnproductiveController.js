@@ -53,7 +53,7 @@ class UnproductiveController {
    * @param {Response} ctx.response
    */
   async store({ request, response }) {
-    let data = request.only(['site_id', 'user_id', 'start_at', 'end_at'])
+    let data = request.only(['site_id', 'user_id', 'start_at', 'end_at', 'day'])
     const validation = await validate(data, Unproductive.getCreateRule())
     if (validation.fails()) {
       return response.notAcceptable({
