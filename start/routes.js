@@ -331,6 +331,7 @@ addPrefixToGroup(Route.group(() => {
 
 addPrefixToGroup(Route.group(() => {
   Route.get('/' , 'ProductivityController.index')
+  Route.get('/:user_id' , 'ProductivityController.show')
 
 })
   .prefix('productivity')
