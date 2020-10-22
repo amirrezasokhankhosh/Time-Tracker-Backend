@@ -124,6 +124,24 @@ class RestrictUserController {
       message: 'Restrict deleted!!!'
     })
   }
+
+  async destroy2({ params, response }) {
+    var siteUser = await SiteUser.query().where('site_id', params.site_id).where('user_id', params.user_id).fetch()
+    siteUser = siteUser.toJSON()[0]
+    console.log(siteUser)
+    var siteUser_id = siteUser.id
+    let siteUser2 = await SiteUser.find(siteUser_id)
+    if (!siteUser2) {
+      throw new HttpException("Restrict Not Found", 404);
+    }
+
+    await siteUser2.delete()
+
+    return response.ok({
+      status: 'Success',
+      message: 'Restrict deleted!!!'
+    })
+  }
 }
 
 module.exports = RestrictUserController

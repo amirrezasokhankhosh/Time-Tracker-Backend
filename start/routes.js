@@ -276,7 +276,9 @@ addPrefixToGroup(Route.group(() => {
 addPrefixToGroup(Route.group(() => {
 
   Route.post('/', 'SiteController.store')
+  Route.get('/:site_id' , 'SiteController.show')
   Route.get('/', 'SiteController.index')
+  Route.put('/:site_id' , 'SiteController.toggleRestrictForAll')
   Route.delete('/:id', 'SiteController.destroy')
 
 })
@@ -303,6 +305,7 @@ addPrefixToGroup(Route.group(() => {
   Route.post('/', 'RestrictGroupController.store')
   // if i get some free time at the end i coud add a route that take a group id and give back restricted sites for it or the other side of this logic
   Route.delete('/:id', 'RestrictGroupController.destroy')
+  Route.delete('/:site_id/:group_id' , 'RestrictGroupController.destroy2')
 
 })
   .prefix('restrict_group')
@@ -314,6 +317,7 @@ addPrefixToGroup(Route.group(() => {
   Route.post('/', 'RestrictUserController.store')
   // if i get some free time at the end i coud add a route that take a user id and give back restricted sites for it or the other side of this logic
   Route.delete('/:id', 'RestrictUserController.destroy')
+  Route.delete('/:site_id/:user_id' , 'RestrictUserController.destroy2')
 
 })
   .prefix('restrict_user')

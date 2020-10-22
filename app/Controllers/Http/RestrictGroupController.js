@@ -10,7 +10,7 @@
 
 const SiteGroup = use('App/Models/SiteGroup');
 const { validate } = use("Validator");
-const {HttpException} = require('node-exceptions') ;
+const { HttpException } = require('node-exceptions');
 
 class RestrictGroupController {
   /**
@@ -22,7 +22,7 @@ class RestrictGroupController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index ({ request, response, view }) {
+  async index({ request, response, view }) {
     const siteGroups = await SiteGroup.all()
     return {
       status: 'success',
@@ -39,7 +39,7 @@ class RestrictGroupController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async create ({ request, response, view }) {
+  async create({ request, response, view }) {
   }
 
   /**
@@ -50,8 +50,8 @@ class RestrictGroupController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store ({ request, response }) {
-    let data = request.only(['site_id' , 'group_id'])
+  async store({ request, response }) {
+    let data = request.only(['site_id', 'group_id'])
     const validation = await validate(data, SiteGroup.getCreateRule())
     if (validation.fails()) {
       return response.notAcceptable({
@@ -75,7 +75,7 @@ class RestrictGroupController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show ({ params, request, response, view }) {
+  async show({ params, request, response, view }) {
   }
 
   /**
@@ -87,7 +87,7 @@ class RestrictGroupController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async edit ({ params, request, response, view }) {
+  async edit({ params, request, response, view }) {
   }
 
   /**
@@ -98,7 +98,7 @@ class RestrictGroupController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update ({ params, request, response }) {
+  async update({ params, request, response }) {
   }
 
   /**
@@ -109,20 +109,38 @@ class RestrictGroupController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy ({ params, request, response }) {
-    const siteGroup = await SiteGroup.find( params.id )
+  async destroy({ params, request, response }) {
+    const siteGroup = await SiteGroup.find(params.id)
 
     if (!siteGroup) {
-      throw new HttpException("Restrict Not Found" , 404) ;
+      throw new HttpException("Restrict Not Found", 404);
     }
 
     await siteGroup.delete()
 
-    return response.ok( {
+    return response.ok({
       status: 'Success',
       message: 'Restrict deleted!!!'
-    } )
+    })
   }
+
+  async destroy2({ params, response }) {
+    var siteGroup = await SiteGroup.query().where('site_id', params.site_id).where('group_id', params.group_id).fetch()
+    siteGroup = siteGroup.toJSON()[0]
+    var siteGroup_id = siteGroup.id
+    let siteGroup2 = await SiteGroup.find(siteGroup_id)
+    if (!siteGroup2) {
+      throw new HttpException("Restrict Not Found", 404);
+    }
+
+    await siteGroup2.delete()
+
+    return response.ok({
+      status: 'Success',
+      message: 'Restrict deleted!!!'
+    })
+  }
+
 }
 
 module.exports = RestrictGroupController

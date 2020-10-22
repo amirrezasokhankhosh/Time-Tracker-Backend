@@ -76,6 +76,16 @@ class SiteController {
    * @param {View} ctx.view
    */
   async show({ params, request, response, view }) {
+    const site = await Site.query().where('id', params.site_id).with('groups').with('users').fetch()
+
+    if (!site) {
+      throw new HttpException("Site Not Found" , 404) ;
+    }
+
+    return response.ok( {
+      status: 'Success',
+      data: site.toJSON()[0]
+    } )
   }
 
   /**
@@ -121,6 +131,21 @@ class SiteController {
     return response.ok( {
       status: 'Success',
       message: 'Site deleted!!!'
+    } )
+  }
+
+  async toggleRestrictForAll({params , response}){
+    const site = await Site.find(params.site_id)
+
+    if (!site) {
+      throw new HttpException("Site Not Found" , 404) ;
+    }
+
+    site.restrict_for_all = !site.restrict_for_all
+    await site.save()
+    return response.ok( {
+      status: 'Success',
+      message: 'Site toggled for restrictions !!!'
     } )
   }
 }
